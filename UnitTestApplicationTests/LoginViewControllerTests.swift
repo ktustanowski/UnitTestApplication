@@ -1,15 +1,14 @@
 //
-//  UnitTestApplicationTests.swift
-//  UnitTestApplicationTests
+//  LoginViewControllerTests.swift
+//  UnitTestApplication
 //
-//  Created by Kamil Tustanowski on 11.11.2016.
+//  Created by Kamil Tustanowski on 15.11.2016.
 //  Copyright © 2016 Kamil Tustanowski. All rights reserved.
 //
 
 import XCTest
-@testable import UnitTestApplication
 
-class UnitTestApplicationTests: XCTestCase {
+class LoginViewControllerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
