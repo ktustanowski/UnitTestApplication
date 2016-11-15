@@ -13,6 +13,8 @@
 		9A09B9B21DD67849008AC48F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A09B9B11DD67849008AC48F /* Assets.xcassets */; };
 		9A09B9B51DD67849008AC48F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A09B9B31DD67849008AC48F /* LaunchScreen.storyboard */; };
 		9A09B9CB1DDBA83B008AC48F /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09B9CA1DDBA83B008AC48F /* LoginViewControllerTests.swift */; };
+		9A09B9CE1DDBC4A8008AC48F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09B9CD1DDBC4A8008AC48F /* Validation.swift */; };
+		9A09B9D01DDBC4DB008AC48F /* ValidableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09B9CF1DDBC4DB008AC48F /* ValidableTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		9A09B9BB1DD67849008AC48F /* UnitTestApplicationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTestApplicationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A09B9C11DD67849008AC48F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A09B9CA1DDBA83B008AC48F /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
+		9A09B9CD1DDBC4A8008AC48F /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		9A09B9CF1DDBC4DB008AC48F /* ValidableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				9A09B9AA1DD67849008AC48F /* AppDelegate.swift */,
-				9A09B9AC1DD67849008AC48F /* LoginViewController.swift */,
+				9A09B9CC1DDBC47C008AC48F /* Login */,
 				9A09B9AE1DD67849008AC48F /* Main.storyboard */,
 				9A09B9B11DD67849008AC48F /* Assets.xcassets */,
 				9A09B9B31DD67849008AC48F /* LaunchScreen.storyboard */,
@@ -94,6 +98,16 @@
 				9A09B9C11DD67849008AC48F /* Info.plist */,
 			);
 			path = UnitTestApplicationTests;
+			sourceTree = "<group>";
+		};
+		9A09B9CC1DDBC47C008AC48F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9A09B9AC1DD67849008AC48F /* LoginViewController.swift */,
+				9A09B9CD1DDBC4A8008AC48F /* Validation.swift */,
+				9A09B9CF1DDBC4DB008AC48F /* ValidableTextField.swift */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +213,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A09B9D01DDBC4DB008AC48F /* ValidableTextField.swift in Sources */,
 				9A09B9AD1DD67849008AC48F /* LoginViewController.swift in Sources */,
+				9A09B9CE1DDBC4A8008AC48F /* Validation.swift in Sources */,
 				9A09B9AB1DD67849008AC48F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

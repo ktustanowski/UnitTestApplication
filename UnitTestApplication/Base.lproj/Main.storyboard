@@ -28,7 +28,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter login here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="beX-fa-t2z">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter login here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="beX-fa-t2z" customClass="ValidableTextField" customModule="UnitTestApplication" customModuleProvider="target">
                                 <rect key="frame" x="16" y="49" width="343" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -52,11 +52,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter password here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lzn-jf-bPj">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter password here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lzn-jf-bPj" customClass="ValidableTextField" customModule="UnitTestApplication" customModuleProvider="target">
                                 <rect key="frame" x="16" y="132" width="343" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="f5R-1y-4el"/>
                                 </connections>
@@ -76,6 +76,9 @@
                                     <constraint firstAttribute="width" constant="91" id="vBV-8A-uKG"/>
                                 </constraints>
                                 <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="signIn" destination="BYZ-38-t0r" eventType="touchUpInside" id="d0r-lp-gQ3"/>
+                                </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kbh-eN-sZs">
                                 <rect key="frame" x="177" y="191" width="20" height="20"/>
