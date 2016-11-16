@@ -8,6 +8,8 @@
 
 import UIKit
 
+let labelDefaultHeight = CGFloat(21)
+
 final class LoginViewController: UIViewController {
 
     
@@ -24,24 +26,58 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideLoginValidationLabel()
+        hidePasswordValidationLabel()
         setupValidators()
     }
 
     func setupValidators() {
-        loginTextField.validators = [IsEmptyValidator()]
-        passwordTextField.validators = [IsEmptyValidator()]
+        setupLoginValidators()
+        setupPasswordValidators()
     }
     
+    func setupLoginValidators() {
+        var isEmptyValidator = IsEmptyValidator()
+        isEmptyValidator.isValidAction = { [weak self] in
+            self?.hideLoginValidationLabel()
+        }
+        
+        isEmptyValidator.isInvalidAction = { [weak self] in
+            self?.showLoginValidation(errorMessage: "Login cannot be empty")
+        }
+        
+        loginTextField.validators = [isEmptyValidator]
+    }
+    
+    
+    func setupPasswordValidators() {
+        var isEmptyValidator = IsEmptyValidator()
+        isEmptyValidator.isValidAction = { [weak self] in
+            self?.hidePasswordValidationLabel()
+        }
+        isEmptyValidator.isInvalidAction = { [weak self] in
+            self?.showPasswordValidation(errorMessage: "Password cannot be empty")
+        }
+        
+        passwordTextField.validators = [isEmptyValidator]
+    }
+
     @IBAction func signIn() {
+        validateInput()
         if inputIsValid() {
             print("input is valid - starting login process")
         } else {
-            print("input is invalid")
+            
         }
     }
     
     private func inputIsValid() -> Bool {
         return loginTextField.isValid() && passwordTextField.isValid()
+    }
+    
+    private func validateInput() {
+        loginTextField.validate()
+        passwordTextField.validate()
     }
 }
 
@@ -53,4 +89,27 @@ extension LoginViewController: UITextFieldDelegate {
         validableTextField.validate()
     }
     
+}
+
+// MARK: Appearance management
+extension LoginViewController {
+
+    func hideLoginValidationLabel() {
+        loginValidationLabelHeightConstraint.constant = 0
+    }
+
+    func showLoginValidation(errorMessage: String) {
+        loginValidationLabel.text = errorMessage
+        loginValidationLabelHeightConstraint.constant = labelDefaultHeight
+    }
+
+    func hidePasswordValidationLabel() {
+        passwordValidationLabelHeightConstraint.constant = 0
+    }
+    
+    func showPasswordValidation(errorMessage: String) {
+        passwordValidationLabel.text = errorMessage
+        passwordValidationLabelHeightConstraint.constant = labelDefaultHeight
+    }
+
 }
