@@ -11,17 +11,20 @@ import UIKit
 let labelDefaultHeight = CGFloat(21)
 
 final class LoginViewController: UIViewController {
-
     
     @IBOutlet weak var loginValidationLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var passwordValidationLabelHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var loginTextField: ValidableTextField!
     @IBOutlet weak var passwordTextField: ValidableTextField!
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var loginValidationLabel: UILabel!
     @IBOutlet weak var passwordValidationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var successLabel: UILabel!
+    
+    lazy var userProvider: UserDataProvider? = {
+        return UserDataProvider()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +44,19 @@ final class LoginViewController: UIViewController {
         isEmptyValidator.isValidAction = { [weak self] in
             self?.hideLoginValidationLabel()
         }
-        
         isEmptyValidator.isInvalidAction = { [weak self] in
             self?.showLoginValidation(errorMessage: "Login cannot be empty")
         }
         
-        loginTextField.validators = [isEmptyValidator]
+        var isEmailValidator = IsEmailValidator()
+        isEmailValidator.isValidAction = { [weak self] in
+            self?.hideLoginValidationLabel()
+        }
+        isEmailValidator.isInvalidAction = { [weak self] in
+            self?.showLoginValidation(errorMessage: "Login must be valid email")
+        }
+
+        loginTextField.validators = [isEmptyValidator, isEmailValidator]
     }
     
     
@@ -63,21 +73,43 @@ final class LoginViewController: UIViewController {
     }
 
     @IBAction func signIn() {
-        validateInput()
         if inputIsValid() {
-            print("input is valid - starting login process")
-        } else {
-            
+            toggleSignInButtonAndSpinner()
+            loginUser()
         }
     }
     
-    private func inputIsValid() -> Bool {
-        return loginTextField.isValid() && passwordTextField.isValid()
+    func loginUser() {
+        guard let login = loginTextField.text, let password = loginTextField.text else { return }
+        self.successLabel.text = nil
+        
+        userProvider?.success = { [weak self] user in
+            self?.successLabel.text = "Hello \(user.name)!"
+            self?.toggleSignInButtonAndSpinner()
+        }
+        
+        userProvider?.failure = { [weak self] error in
+            self?.showErrorAlert()
+            self?.toggleSignInButtonAndSpinner()
+        }
+        
+        userProvider?.load(forLogin: login, password: password)
     }
     
-    private func validateInput() {
-        loginTextField.validate()
-        passwordTextField.validate()
+    func showErrorAlert() {
+        self.present(UIAlertController.loginErrorAlert(), animated: true, completion: nil)
+    }
+    
+    func toggleSignInButtonAndSpinner() {
+        signInButton.isHidden = !signInButton.isHidden
+        spinner.isAnimating ? spinner.stopAnimating() : spinner.startAnimating()
+    }
+    
+    private func inputIsValid() -> Bool {
+        let loginIsValid = loginTextField.validate()
+        let passwordIsValid = passwordTextField.validate()
+        
+        return loginIsValid && passwordIsValid
     }
 }
 
@@ -86,7 +118,7 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         guard let validableTextField = textField as? ValidableTextField else { return }
         
-        validableTextField.validate()
+        let _ = validableTextField.validate()
     }
     
 }

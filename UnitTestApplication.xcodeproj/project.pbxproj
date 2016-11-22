@@ -15,6 +15,12 @@
 		9A09B9CB1DDBA83B008AC48F /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09B9CA1DDBA83B008AC48F /* LoginViewControllerTests.swift */; };
 		9A09B9CE1DDBC4A8008AC48F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09B9CD1DDBC4A8008AC48F /* Validation.swift */; };
 		9A09B9D01DDBC4DB008AC48F /* ValidableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09B9CF1DDBC4DB008AC48F /* ValidableTextField.swift */; };
+		9AD0193E1DDCE27F00FBC92B /* UserDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD0193D1DDCE27F00FBC92B /* UserDataProvider.swift */; };
+		9AF87F171DE3A2A600BDEAE7 /* String+EmailValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F161DE3A2A600BDEAE7 /* String+EmailValidation.swift */; };
+		9AF87F191DE3A4E000BDEAE7 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F181DE3A4E000BDEAE7 /* Validator.swift */; };
+		9AF87F1B1DE3A4FC00BDEAE7 /* IsEmptyValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F1A1DE3A4FC00BDEAE7 /* IsEmptyValidator.swift */; };
+		9AF87F1D1DE3A52900BDEAE7 /* IsEmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F1C1DE3A52900BDEAE7 /* IsEmailValidator.swift */; };
+		9AF87F201DE4D62400BDEAE7 /* UIAlertController+CustomAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F1F1DE4D62400BDEAE7 /* UIAlertController+CustomAlerts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,12 @@
 		9A09B9CA1DDBA83B008AC48F /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		9A09B9CD1DDBC4A8008AC48F /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		9A09B9CF1DDBC4DB008AC48F /* ValidableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidableTextField.swift; sourceTree = "<group>"; };
+		9AD0193D1DDCE27F00FBC92B /* UserDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataProvider.swift; sourceTree = "<group>"; };
+		9AF87F161DE3A2A600BDEAE7 /* String+EmailValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EmailValidation.swift"; sourceTree = "<group>"; };
+		9AF87F181DE3A4E000BDEAE7 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		9AF87F1A1DE3A4FC00BDEAE7 /* IsEmptyValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsEmptyValidator.swift; sourceTree = "<group>"; };
+		9AF87F1C1DE3A52900BDEAE7 /* IsEmailValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsEmailValidator.swift; sourceTree = "<group>"; };
+		9AF87F1F1DE4D62400BDEAE7 /* UIAlertController+CustomAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+CustomAlerts.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,10 +116,24 @@
 			isa = PBXGroup;
 			children = (
 				9A09B9AC1DD67849008AC48F /* LoginViewController.swift */,
-				9A09B9CD1DDBC4A8008AC48F /* Validation.swift */,
 				9A09B9CF1DDBC4DB008AC48F /* ValidableTextField.swift */,
+				9AD0193D1DDCE27F00FBC92B /* UserDataProvider.swift */,
+				9AF87F1F1DE4D62400BDEAE7 /* UIAlertController+CustomAlerts.swift */,
+				9AF87F1E1DE3A53800BDEAE7 /* Validation */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		9AF87F1E1DE3A53800BDEAE7 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				9A09B9CD1DDBC4A8008AC48F /* Validation.swift */,
+				9AF87F181DE3A4E000BDEAE7 /* Validator.swift */,
+				9AF87F1A1DE3A4FC00BDEAE7 /* IsEmptyValidator.swift */,
+				9AF87F1C1DE3A52900BDEAE7 /* IsEmailValidator.swift */,
+				9AF87F161DE3A2A600BDEAE7 /* String+EmailValidation.swift */,
+			);
+			name = Validation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,8 +239,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AF87F1D1DE3A52900BDEAE7 /* IsEmailValidator.swift in Sources */,
+				9AF87F201DE4D62400BDEAE7 /* UIAlertController+CustomAlerts.swift in Sources */,
+				9AF87F171DE3A2A600BDEAE7 /* String+EmailValidation.swift in Sources */,
+				9AD0193E1DDCE27F00FBC92B /* UserDataProvider.swift in Sources */,
+				9AF87F1B1DE3A4FC00BDEAE7 /* IsEmptyValidator.swift in Sources */,
 				9A09B9D01DDBC4DB008AC48F /* ValidableTextField.swift in Sources */,
 				9A09B9AD1DD67849008AC48F /* LoginViewController.swift in Sources */,
+				9AF87F191DE3A4E000BDEAE7 /* Validator.swift in Sources */,
 				9A09B9CE1DDBC4A8008AC48F /* Validation.swift in Sources */,
 				9A09B9AB1DD67849008AC48F /* AppDelegate.swift in Sources */,
 			);
@@ -422,6 +454,7 @@
 				9A09B9C61DD67849008AC48F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9A09B9C71DD67849008AC48F /* Build configuration list for PBXNativeTarget "UnitTestApplicationTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +463,7 @@
 				9A09B9C91DD67849008AC48F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
