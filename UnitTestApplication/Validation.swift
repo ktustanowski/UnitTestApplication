@@ -17,53 +17,27 @@ protocol Validable {
 
 extension Validable {
     
-    func validate() {
-        validators?.forEach { validator in
-            validator.validate(stringToValidate)
-        }
-    }
-    
-    func isValid() -> Bool {
-        var isValid = true
-        validators?.forEach { validator in
-            if validator.isValid(stringToValidate) == false {
-                isValid = false
-                return
+    func validate() -> Bool {
+        guard let validators = validators else { return true }
+        
+        for validator in validators {
+            if validator.validate(stringToValidate) == false {
+                return false
             }
         }
         
-        return isValid
+        return true
     }
-}
-
-protocol Validator {
     
-    var isValidAction: (()->())? { get set }
-    var isInvalidAction: (()->())? { get set }
-    
-    var isValid: ((String?) -> (Bool)) { get set }
-    
-}
-
-extension Validator {
-    
-    func validate(_ input: String?) {
-        if self.isValid(input) == true {
-            isValidAction?()
-        } else {
-            isInvalidAction?()
+    func isValid() -> Bool {
+        guard let validators = validators else { return true }
+        
+        for validator in validators {
+            if validator.isValid(stringToValidate) == false {
+                return false
+            }
         }
+        
+        return true
     }
-    
-}
-
-struct IsEmptyValidator: Validator {
-
-    var isValidAction: (()->())?
-    var isInvalidAction: (()->())?
-   
-    var isValid: ((String?) -> (Bool)) = { input in
-        return input?.isEmpty == false
-    }
-    
 }
