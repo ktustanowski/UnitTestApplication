@@ -17,4 +17,6 @@ struct IsEmailValidator: Validator {
         return input?.isEmail == true
     }
     
+    init() { /* block generation of init with parameters */ }
+    
 }

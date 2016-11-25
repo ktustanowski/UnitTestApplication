@@ -17,4 +17,6 @@ struct IsEmptyValidator: Validator {
         return input?.isEmpty == false
     }
     
+    init() { /* block generation of init with parameters */ }
+    
 }
