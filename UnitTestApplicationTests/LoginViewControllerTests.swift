@@ -21,7 +21,7 @@ class LoginViewControllerTests: XCTestCase {
         
         viewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! LoginViewController
         viewController.userProvider = UserDataProviderStub() /* Make sure we won't make api calls during the tests */
-        _ = viewController.view /* update to what richard used in PP */
+        viewController.view.layoutIfNeeded() /* update to what richard used in PP */
     }
     
     /*
