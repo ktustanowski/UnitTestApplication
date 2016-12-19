@@ -15,7 +15,7 @@ class ValiatorTests: XCTestCase {
         var invalidActionWasCalled = false
         var validActionWasCalled = false
         
-        let validator = ValidatorStub(isValidAction: {
+        let validator = ValidatorStruct(isValidAction: {
             validActionWasCalled = true
         }, isInvalidAction: {
             invalidActionWasCalled = true
@@ -34,7 +34,7 @@ class ValiatorTests: XCTestCase {
         var invalidActionWasCalled = false
         var validActionWasCalled = false
         
-        let validator = ValidatorStub(isValidAction: {
+        let validator = ValidatorStruct(isValidAction: {
             validActionWasCalled = true
         }, isInvalidAction: {
             invalidActionWasCalled = true
@@ -51,7 +51,7 @@ class ValiatorTests: XCTestCase {
     
 }
 
-struct ValidatorStub: Validator {
+struct ValidatorStruct: Validator {
     
     var isValidAction: (()->())?
     var isInvalidAction: (()->())?

@@ -15,7 +15,7 @@ struct User {
     
 }
 
-struct UserDataProvider {
+class UserDataProvider {
     
     var success: ((User)->())?
     var failure: ((NSError?)->())?

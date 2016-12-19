@@ -8,10 +8,9 @@
 
 import UIKit
 
-let labelDefaultHeight = CGFloat(21)
-
 final class LoginViewController: UIViewController {
     
+    let labelDefaultHeight = CGFloat(21)
     @IBOutlet weak var loginValidationLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var passwordValidationLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var loginTextField: ValidableTextField!
@@ -32,8 +31,26 @@ final class LoginViewController: UIViewController {
         hideLoginValidationLabel()
         hidePasswordValidationLabel()
         setupValidators()
+        setupUserProvider()
     }
 
+    /*
+     UserProvider should have its own tests ofcourse but because this is only stub needed to demonstrate
+     what happens when we touch async world in tests I won't do it here. Not far from here you will see 
+     how treat classes that are giving us async headeache and we won't even use real UserDataProvider code in tests.
+     */
+    func setupUserProvider() {
+        userProvider?.success = { [weak self] user in
+            self?.successLabel.text = "Hello \(user.name)!"
+            self?.toggleSignInButtonAndSpinner()
+        }
+        
+        userProvider?.failure = { [weak self] error in
+            self?.successLabel.text = "Couldn't login 😱"
+            self?.toggleSignInButtonAndSpinner()
+        }
+    }
+    
     func setupValidators() {
         setupLoginValidators()
         setupPasswordValidators()
@@ -74,30 +91,17 @@ final class LoginViewController: UIViewController {
 
     @IBAction func signIn() {
         if inputIsValid() {
-            toggleSignInButtonAndSpinner()
-            loginUser()
+            signInUser()
         }
     }
     
-    func loginUser() {
+    func signInUser() {
         guard let login = loginTextField.text, let password = loginTextField.text else { return }
+        
+        toggleSignInButtonAndSpinner()
         self.successLabel.text = nil
         
-        userProvider?.success = { [weak self] user in
-            self?.successLabel.text = "Hello \(user.name)!"
-            self?.toggleSignInButtonAndSpinner()
-        }
-        
-        userProvider?.failure = { [weak self] error in
-            self?.showErrorAlert()
-            self?.toggleSignInButtonAndSpinner()
-        }
-        
         userProvider?.load(forLogin: login, password: password)
-    }
-    
-    func showErrorAlert() {
-        self.present(UIAlertController.loginErrorAlert(), animated: true, completion: nil)
     }
     
     func toggleSignInButtonAndSpinner() {
@@ -105,7 +109,7 @@ final class LoginViewController: UIViewController {
         spinner.isAnimating ? spinner.stopAnimating() : spinner.startAnimating()
     }
     
-    private func inputIsValid() -> Bool {
+    func inputIsValid() -> Bool {
         let loginIsValid = loginTextField.validate()
         let passwordIsValid = passwordTextField.validate()
         
