@@ -43,5 +43,14 @@ class LoginViewControllerTestsArticle: XCTestCase {
         XCTAssert(viewController.loginTextField.validators?.last is IsEmailValidator, "Login text field should have Is Email Validator assigned")
     }
     
-    
+    func testThatLoginIsEmptyValidatorIsValidActionIsSetToHideValidationLabel() {
+        //Given
+        viewController.viewDidLoad()
+        viewController.loginValidationLabelHeightConstraint.constant = 999
+        //When
+        viewController.loginTextField.validators?.first?.isValidAction?()
+        //Then
+        XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
+    }
+
 }

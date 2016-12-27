@@ -85,6 +85,7 @@ class LoginViewControllerTests: XCTestCase {
 
     func testThatLoginIsEmptyValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
         viewController.viewDidLoad()
+        viewController.loginTextField.text = nil
         viewController.loginValidationLabelHeightConstraint.constant = 0
         
         viewController.loginTextField.validators?.first?.isInvalidAction?()
@@ -105,6 +106,7 @@ class LoginViewControllerTests: XCTestCase {
     
     func testThatLoginIsEmailValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
         viewController.viewDidLoad()
+        viewController.loginTextField.text = nil
         viewController.loginValidationLabelHeightConstraint.constant = 0
         
         viewController.loginTextField.validators?.last?.isInvalidAction?()
@@ -123,21 +125,21 @@ class LoginViewControllerTests: XCTestCase {
     
     func testThatPasswordIsEmptyValidatorIsValidActionIsSetToHideValidationLabel() {
         viewController.viewDidLoad()
-        viewController.loginValidationLabelHeightConstraint.constant = 999
+        viewController.passwordValidationLabelHeightConstraint.constant = 999
         
-        viewController.loginTextField.validators?.first?.isValidAction?()
+        viewController.passwordTextField.validators?.first?.isValidAction?()
         
-        XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
+        XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
     }
     
     func testThatPasswordIsEmptyValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
         viewController.viewDidLoad()
-        viewController.loginValidationLabelHeightConstraint.constant = 0
+        viewController.passwordValidationLabelHeightConstraint.constant = 0
         
-        viewController.loginTextField.validators?.first?.isInvalidAction?()
+        viewController.passwordTextField.validators?.first?.isInvalidAction?()
         
-        XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
-        XCTAssertEqual(viewController.loginValidationLabel.text, "Login cannot be empty", "Is empty validator should show validation text on failure") /* this testing the text is more like - how far would you go - its ok to do this but every text change would require test update. When you are using string.identifiers (i.e. when localizing) its better - we are testing whether this text is in right place or not - not the text valie itself */
+        XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
+        XCTAssertEqual(viewController.passwordValidationLabel.text, "Password cannot be empty", "Is empty validator should show validation text on failure") /* this testing the text is more like - how far would you go - its ok to do this but every text change would require test update. When you are using string.identifiers (i.e. when localizing) its better - we are testing whether this text is in right place or not - not the text valie itself */
         
     }
 
