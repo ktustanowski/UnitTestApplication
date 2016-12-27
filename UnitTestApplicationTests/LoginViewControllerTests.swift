@@ -21,7 +21,7 @@ class LoginViewControllerTests: XCTestCase {
         
         viewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! LoginViewController
         viewController.userProvider = UserDataProviderStub() /* Make sure we won't make api calls during the tests */
-        viewController.view.layoutIfNeeded() /* update to what richard used in PP */
+        viewController.view.layoutIfNeeded()
     }
     
     /*
@@ -75,6 +75,7 @@ class LoginViewControllerTests: XCTestCase {
     }
 
     func testThatLoginIsEmptyValidatorIsValidActionIsSetToHideValidationLabel() {
+        viewController.viewDidLoad()
         viewController.loginValidationLabelHeightConstraint.constant = 999
         
         viewController.loginTextField.validators?.first?.isValidAction?()
@@ -83,6 +84,7 @@ class LoginViewControllerTests: XCTestCase {
     }
 
     func testThatLoginIsEmptyValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
+        viewController.viewDidLoad()
         viewController.loginValidationLabelHeightConstraint.constant = 0
         
         viewController.loginTextField.validators?.first?.isInvalidAction?()
@@ -93,6 +95,7 @@ class LoginViewControllerTests: XCTestCase {
     }
 
     func testThatLoginIsEmailValidatorIsValidActionIsSetToHideValidationLabel() {
+        viewController.viewDidLoad()
         viewController.loginValidationLabelHeightConstraint.constant = 999
         
         viewController.loginTextField.validators?.last?.isValidAction?()
@@ -101,6 +104,7 @@ class LoginViewControllerTests: XCTestCase {
     }
     
     func testThatLoginIsEmailValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
+        viewController.viewDidLoad()
         viewController.loginValidationLabelHeightConstraint.constant = 0
         
         viewController.loginTextField.validators?.last?.isInvalidAction?()
@@ -118,6 +122,7 @@ class LoginViewControllerTests: XCTestCase {
     }
     
     func testThatPasswordIsEmptyValidatorIsValidActionIsSetToHideValidationLabel() {
+        viewController.viewDidLoad()
         viewController.loginValidationLabelHeightConstraint.constant = 999
         
         viewController.loginTextField.validators?.first?.isValidAction?()
@@ -126,6 +131,7 @@ class LoginViewControllerTests: XCTestCase {
     }
     
     func testThatPasswordIsEmptyValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
+        viewController.viewDidLoad()
         viewController.loginValidationLabelHeightConstraint.constant = 0
         
         viewController.loginTextField.validators?.first?.isInvalidAction?()
