@@ -20,14 +20,23 @@ class IsEmptyValidatorTests: XCTestCase {
     }
     
     func testThatWhenPassedEmptyStringValidateReturnsFalse() {
+        //Given
+        /* do nothing */
+        //When & Then
         XCTAssert(validator.validate("") == false, "Validation of empty string should return false")
     }
 
     func testThatWhenPassedNotEmptyStringValidateReturnsTrue() {
+        //Given
+        /* do nothing */
+        //When & Then
         XCTAssert(validator.validate("SomeNotEmptyString") == true, "Validation of not empty string should return true")
     }
 
     func testThatWhenPassedNilValidateReturnsFalse() {
+        //Given
+        /* do nothing */
+        //When & Then
         XCTAssert(validator.validate(nil) == false, "Validation of nil should return false")
     }
 
