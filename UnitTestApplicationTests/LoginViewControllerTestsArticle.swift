@@ -53,4 +53,32 @@ class LoginViewControllerTestsArticle: XCTestCase {
         XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
     }
 
+    func testThatUserProviderSuccessClosureIsSetOnViewDidLoad() {
+        //Given
+        viewController.viewDidLoad()
+        viewController.successLabel.text = nil
+        viewController.signInButton.isHidden = true
+        viewController.spinner.startAnimating()
+        //When
+        viewController.userProvider?.success?(User(login: "some@email.com", name: "John"))
+        //Then
+        XCTAssertEqual(viewController.successLabel.text, "Hello John!", "Should contain \"Hello John!\"")
+        XCTAssertEqual(viewController.signInButton.isHidden, false)
+        XCTAssertEqual(viewController.spinner.isAnimating, false)
+    }
+    
+    func testThatUserProviderFailureClosureIsSetOnViewDidLoad() {
+        //Given
+        viewController.viewDidLoad()
+        viewController.successLabel.text = nil
+        viewController.signInButton.isHidden = true
+        viewController.spinner.startAnimating()
+        //When
+        viewController.userProvider?.failure?(nil)
+        //Then
+        XCTAssertEqual(viewController.successLabel.text, "Couldn't login 😱", "Should contain \"Couldn't login 😱\"")
+        XCTAssertEqual(viewController.signInButton.isHidden, false)
+        XCTAssertEqual(viewController.spinner.isAnimating, false)
+    }
+
 }

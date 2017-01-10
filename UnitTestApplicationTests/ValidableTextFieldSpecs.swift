@@ -11,19 +11,14 @@ import XCTest
 
 class ValidableTextFieldSpecs: XCTestCase {
     
-    let stringToValidate = "JustSomeString"
-    var textField: ValidableTextField!
-    
-    override func setUp() {
-        super.setUp()
-
-        textField = ValidableTextField()
-    }
-        
     func testThatCanReturnCurrentTextAsStringToValidate() {
-        textField.text = stringToValidate
-        
-        XCTAssert(textField.stringToValidate == stringToValidate, "Should return current text as string to validate")
+        //Given
+        let textField = ValidableTextField()
+        textField.text = "just some random text"
+        //When
+        /* do nothing */
+        //Then
+        XCTAssert(textField.stringToValidate == "just some random text", "Should return current text as string to validate")
     }
     
 }

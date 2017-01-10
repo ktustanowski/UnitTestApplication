@@ -11,6 +11,7 @@ import UIKit
 class ValidableTextField: UITextField, Validable {
     
     var validators: [Validator]?
+    
     var stringToValidate: String? {
         return text
     }

@@ -44,23 +44,28 @@ class LoginViewControllerTests: XCTestCase {
     }
 
     func testThatUserProviderSuccessClosureIsSetOnViewDidLoad() {
+        //Given
         viewController.viewDidLoad()
-        simulateThatLoginProcessInProgress(isInProgress: true)
-        
-        let name = "John"
-        viewController.userProvider?.success?(User(login: "some@email.com", name: name))
-        
-        XCTAssertEqual(viewController.successLabel.text, "Hello \(name)!", "Should contain \"Hello \(name)!\"")
+        viewController.successLabel.text = nil
+        viewController.signInButton.isHidden = true
+        viewController.spinner.startAnimating()
+        //When
+        viewController.userProvider?.success?(User(login: "some@email.com", name: "John"))
+        //Then
+        XCTAssertEqual(viewController.successLabel.text, "Hello John!", "Should contain \"Hello John!\"")
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
     }
 
     func testThatUserProviderFailureClosureIsSetOnViewDidLoad() {
+        //Given
         viewController.viewDidLoad()
-        simulateThatLoginProcessInProgress(isInProgress: true)
-        
-        viewController.userProvider?.failure?(nil)
-        
+        viewController.successLabel.text = nil
+        viewController.signInButton.isHidden = true
+        viewController.spinner.startAnimating()
+        //When
+        viewController.userProvider?.failure?(NSError(domain: "error domain", code: 1, userInfo: [ : ]))
+        //Then
         XCTAssertEqual(viewController.successLabel.text, "Couldn't login 😱", "Should contain \"Couldn't login 😱\"")
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
@@ -153,14 +158,14 @@ class LoginViewControllerTests: XCTestCase {
     func testThatInputIsValidReturnsTrueWhenBothLoginAndPasswordAreValid() {
         /* We have written test title so we know what we are testing so - lets  write this down. Hit test. Of couse it will fail because 
          neither our password nor login passes the validation. So let's make them pass */
-        viewController.loginTextField.text = "kyle.katarn@jediwannabe.com"
+        viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
         viewController.passwordTextField.text = "0123456"
         
         XCTAssertEqual(viewController.inputIsValid(), true, "When both login and password are valid should return true")
     }
 
     func testThatInputIsValidReturnsFalseWhenOnlyLoginIsValid() {
-        viewController.loginTextField.text = "kyle.katarn@jediwannabe.com"
+        viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
         
         XCTAssertEqual(viewController.inputIsValid(), false, "When only login is valid should return false")
     }
@@ -228,18 +233,10 @@ class LoginViewControllerTests: XCTestCase {
 extension LoginViewControllerTests {
     
     func simulateThatInputIsValid(isValid: Bool) {
-        viewController.loginTextField.text = isValid ? "kyle.katarn@jediwannabe.com" : ""
+        viewController.loginTextField.text = isValid ? "kyle.katarn@ravensclaw.com" : ""
         viewController.passwordTextField.text = isValid ? "0123456" : ""
     }
     
-    func simulateThatLoginProcessInProgress(isInProgress: Bool) {
-        viewController.signInButton.isHidden = isInProgress
-        if isInProgress {
-            viewController.spinner.startAnimating()
-        } else {
-            viewController.spinner.stopAnimating()
-        }
-    }
 }
 
 /* 
