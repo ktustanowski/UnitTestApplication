@@ -18,15 +18,7 @@ class ValidableTests: XCTestCase {
         
         validableStruct = ValidableStruct()
     }
-    
-    func testThatCanAddValidators() {
-        validableStruct.validators?.append(PositiveValidator())
-        validableStruct.validators?.append(PositiveValidator())
-        validableStruct.validators?.append(NegativeValidator())
         
-        XCTAssert(validableStruct.validators?.count == 3, "Should be able to add validators")
-    }
-    
     func testThatWhenAllValidatorsReturnTrueValidateAlsoReturnsTrue() {
         validableStruct.validators?.append(PositiveValidator())
         validableStruct.validators?.append(PositiveValidator())
