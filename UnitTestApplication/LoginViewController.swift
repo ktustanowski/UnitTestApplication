@@ -88,9 +88,6 @@ final class LoginViewController: UIViewController {
         
         passwordTextField.validators = [isEmptyValidator]
     }
-
-    
-    
     
     @IBAction func signIn() {
         if inputIsValid() {
@@ -122,7 +119,7 @@ final class LoginViewController: UIViewController {
 
 extension LoginViewController: UITextFieldDelegate {
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         guard let validableTextField = textField as? ValidableTextField else { return }
         
         let _ = validableTextField.validate()
@@ -134,6 +131,7 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController {
 
     func hideLoginValidationLabel() {
+        loginValidationLabel.text = nil
         loginValidationLabelHeightConstraint.constant = 0
     }
 
@@ -143,6 +141,7 @@ extension LoginViewController {
     }
 
     func hidePasswordValidationLabel() {
+        passwordValidationLabel.text = nil
         passwordValidationLabelHeightConstraint.constant = 0
     }
     

@@ -156,27 +156,31 @@ class LoginViewControllerTests: XCTestCase {
      */
     
     func testThatInputIsValidReturnsTrueWhenBothLoginAndPasswordAreValid() {
-        /* We have written test title so we know what we are testing so - lets  write this down. Hit test. Of couse it will fail because 
-         neither our password nor login passes the validation. So let's make them pass */
+        //Given
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
         viewController.passwordTextField.text = "0123456"
-        
+        //When & Then
         XCTAssertEqual(viewController.inputIsValid(), true, "When both login and password are valid should return true")
     }
 
     func testThatInputIsValidReturnsFalseWhenOnlyLoginIsValid() {
+        //Given
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
-        
+        //When & Then
         XCTAssertEqual(viewController.inputIsValid(), false, "When only login is valid should return false")
     }
 
     func testThatInputIsValidReturnsFalseWhenOnlyPasswordIsValid() {
+        //Given
         viewController.passwordTextField.text = "0123456"
-
+        //When & Then
         XCTAssertEqual(viewController.inputIsValid(), false, "When only password is valid should return false")
     }
 
-    func testThatInputIsValidReturnsFalseWhenBothLoginAndPasswordAreInvalid() { /* this test is not necessary - but with it its all clear */
+    func testThatInputIsValidReturnsFalseWhenBothLoginAndPasswordAreInvalid() {
+        //Given
+        /* do nothing */
+        //When & Then
         XCTAssertEqual(viewController.inputIsValid(), false, "When both login and password are invalid should return false")
     }
     
@@ -186,53 +190,131 @@ class LoginViewControllerTests: XCTestCase {
      When we are doing network calls in our tests we break both of this rules.
      In order to chck next behaviors we need to stub our class that is making requests to login user.
      */
-    func testThatWhenInputIsInvalidNothingHappensAfterTappingSignInButton() {
-        simulateThatInputIsValid(isValid: false)
-        
+    func testThatWhenInputIsValidBeforeLoginSpinnerStartAnimating() {
+        //Given
+        viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
+        viewController.passwordTextField.text = "0123456"
+        viewController.successLabel.text = "some text"
+        viewController.signInButton.isHidden = false
+        viewController.spinner.stopAnimating()
+        //When
         viewController.signIn()
-
-        XCTAssertEqual(userDataProviderStub?.loadCalled, false, "Shouldn't try to load user data")
-        // we could not include below asserts to tests and this would be perfectly fine because we already 
-        // tested behavior of success / failure cosures - but in my opinion in tests sometimes its beneficial
-        // to have biolerplate code - just to make the test more readable, documentation-like
-        XCTAssertEqual(viewController.successLabel.text?.isEmpty, true, "Success label text should be empty")
-        XCTAssertEqual(viewController.signInButton.isHidden, false)
-        XCTAssertEqual(viewController.spinner.isAnimating, false)
+        //Then
+        XCTAssertNil(viewController.successLabel.text, "Success label text should be nil")
+        XCTAssertEqual(viewController.signInButton.isHidden, true)
+        XCTAssertEqual(viewController.spinner.isAnimating, true)
     }
-
+    
     func testThatWhenInputIsValidLoginUserAfterTappingSignInButtonWhenNoError() {
-        simulateThatInputIsValid(isValid: true)
+        //Given
+        viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
+        viewController.passwordTextField.text = "0123456"
+        viewController.successLabel.text = nil
+        viewController.signInButton.isHidden = false
+        viewController.spinner.stopAnimating()
+        //When
         let name = "Jonh"
         userDataProviderStub?.usernameToReturn = name
-        
         viewController.signIn()
-        
-        XCTAssertEqual(userDataProviderStub?.loadCalled, true, "Should try to load user data")
+        //Then
         // we could not include below asserts to tests and this would be perfectly fine because we already
         // tested behavior of success / failure cosures - but in my opinion in tests sometimes its beneficial
-        // to have biolerplate code - just to make the test more readable, documentation-like
+        // to have redundant code - just to make the test more readable, documentation-like
         XCTAssertEqual(viewController.successLabel.text, "Hello \(name)!", "Should contain \"Hello \(name)!\"")
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
     }
     
     func testThatWhenInputIsValidDoNotLoginUserAfterTappingSignInButtonWhenError() {
-        simulateThatInputIsValid(isValid: true)
+        //Given
+        viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
+        viewController.passwordTextField.text = "0123456"
+        viewController.successLabel.text = nil
+        viewController.signInButton.isHidden = false
+        viewController.spinner.stopAnimating()
+        //When
         userDataProviderStub?.errorToReturn = NSError(domain: "", code: 0, userInfo: [:])
-        
         viewController.signIn()
-        
-        XCTAssertEqual(userDataProviderStub?.loadCalled, true, "Should try to load user data")
+        //Then
         XCTAssertEqual(viewController.successLabel.text, "Couldn't login 😱", "Should contain \"Couldn't login 😱\"")
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
+    }
+
+    func testThatWhenInputIsInvalidNothingHappensAfterTappingSignInButton() {
+        //Given
+        viewController.loginTextField.text = nil
+        viewController.passwordTextField.text = nil
+        viewController.successLabel.text = "some text"
+        viewController.signInButton.isHidden = false
+        viewController.spinner.stopAnimating()
+        //When
+        viewController.signIn()
+        //Then
+        XCTAssertEqual(viewController.successLabel.text, "some text", "Shoulc contain some text")
+        XCTAssertEqual(viewController.signInButton.isHidden, false)
+        XCTAssertEqual(viewController.spinner.isAnimating, false)
+    }
+
+    
+    func testThatLoginViewControllerIsLoginTextFieldDlegate() {
+        //Given
+        /* do nothing */
+        //When
+        /* do nothing */
+        //Then
+        XCTAssertEqual(viewController.loginTextField.delegate as? UIViewController, viewController, "LoginViewController should be text field delegate")
+    }
+    
+    func testThatLoginViewControllerIsPasswordTextFieldDlegate() {
+        //Given
+        /* do nothing */
+        //When
+        /* do nothing */
+        //Then
+        XCTAssertEqual(viewController.passwordTextField.delegate as? UIViewController, viewController, "LoginViewController should be text field delegate")
+    }
+
+    
+    func testThatWhenUserEndEditingLoginTextFieldValidationIsCalled() {
+        //Given
+        /* do nothing*/
+        //When
+        viewController.textFieldDidEndEditing(viewController.loginTextField)
+        //Then
+        XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
+        XCTAssertEqual(viewController.loginValidationLabel.text, "Login cannot be empty", "Is empty validator should show validation text on failure")
+    }
+    
+    func testThatWhenUserEndEditingPasswordTextFieldValidationIsCalled() {
+        //Given
+        /* do nothing*/
+        //When
+        viewController.textFieldDidEndEditing(viewController.passwordTextField)
+        //Then
+        XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
+        XCTAssertEqual(viewController.passwordValidationLabel.text, "Password cannot be empty", "Is empty validator should show validation text on failure")
+    }
+    
+    func testThatWhenUserEndEditingRegulartextFieldValidationIsNotCalled() {
+        //Given
+        /* do nothing*/
+        //When
+        viewController.textFieldDidEndEditing(UITextField())
+        //Then
+        XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, 0, "Is empty validator should show validation label on failure")
+        XCTAssertEqual(viewController.passwordValidationLabel.text, nil, "Is empty validator should show validation text on failure")
+
+        XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Is empty validator should show validation label on failure")
+        XCTAssertEqual(viewController.loginValidationLabel.text, nil, "Is empty validator should show validation text on failure")
+
     }
 
 }
 
 extension LoginViewControllerTests {
     
-    func simulateThatInputIsValid(isValid: Bool) {
+    func simulate(inputIsValid isValid: Bool) {
         viewController.loginTextField.text = isValid ? "kyle.katarn@ravensclaw.com" : ""
         viewController.passwordTextField.text = isValid ? "0123456" : ""
     }
@@ -258,15 +340,14 @@ class UserDataProviderStub: UserDataProvider {
     
     override func load(forLogin login: String, password: String) {
         loadCalled = true
-        guard errorToReturn == nil else {
+        
+        if let errorToReturn = errorToReturn {
             failure?(errorToReturn)
             return
         }
         
         if let username = usernameToReturn {
             success?(User(login: login, name: username))
-        } else {
-            failure?(nil)
         }
     }
 }
