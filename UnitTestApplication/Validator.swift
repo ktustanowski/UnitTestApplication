@@ -19,7 +19,7 @@ protocol Validator {
 
 extension Validator {
     
-    func validate(_ input: String?) -> Bool{
+    func validate(_ input: String?) -> Bool {
         let isValid = self.isValid(input) == true
         
         if isValid {

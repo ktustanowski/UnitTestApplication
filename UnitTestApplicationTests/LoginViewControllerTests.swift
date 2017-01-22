@@ -24,15 +24,8 @@ class LoginViewControllerTests: XCTestCase {
         viewController.view.layoutIfNeeded()
     }
     
-    /*
-     Normally I just go from "top" to "bottom" but rather in terms of flows than actual code. Its always good to test the setup
-     and then go to other stuff like i.e. in view controllers checking lifecycle handling which is more isloated than other user induced flows.
-     
-     In this case lets see what we got in view did load, hiding validation labels and configuration of
-     */
-    
     func testThatHidesLoginValidationLabelOnViewDidLoad() {
-        viewController.viewDidLoad() /* do not be affraid to call any method you need in order to verify behavior */
+        viewController.viewDidLoad()
         
         XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Login validation label should be hidden on startup")
     }
@@ -64,7 +57,7 @@ class LoginViewControllerTests: XCTestCase {
         viewController.signInButton.isHidden = true
         viewController.spinner.startAnimating()
         //When
-        viewController.userProvider?.failure?(NSError(domain: "error domain", code: 1, userInfo: [ : ]))
+        viewController.userProvider?.failure?(nil)
         //Then
         XCTAssertEqual(viewController.successLabel.text, "Couldn't login 😱", "Should contain \"Couldn't login 😱\"")
         XCTAssertEqual(viewController.signInButton.isHidden, false)
@@ -117,8 +110,7 @@ class LoginViewControllerTests: XCTestCase {
         viewController.loginTextField.validators?.last?.isInvalidAction?()
         
         XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
-        XCTAssertEqual(viewController.loginValidationLabel.text, "Login must be valid email", "Is empty validator should show validation text on failure") /* this testing the text is more like - how far would you go - its ok to do this but every text change would require test update. When you are using string.identifiers (i.e. when localizing) its better - we are testing whether this text is in right place or not - not the text valie itself */
-        
+        XCTAssertEqual(viewController.loginValidationLabel.text, "Login must be valid email", "Is empty validator should show validation text on failure")
     }
 
     func testThatPasswordTextFieldValidatorsAreSetUpOnViewDidLoad() {
@@ -145,17 +137,9 @@ class LoginViewControllerTests: XCTestCase {
         viewController.passwordTextField.validators?.first?.isInvalidAction?()
         
         XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
-        XCTAssertEqual(viewController.passwordValidationLabel.text, "Password cannot be empty", "Is empty validator should show validation text on failure") /* this testing the text is more like - how far would you go - its ok to do this but every text change would require test update. When you are using string.identifiers (i.e. when localizing) its better - we are testing whether this text is in right place or not - not the text valie itself */        
+        XCTAssertEqual(viewController.passwordValidationLabel.text, "Password cannot be empty", "Is empty validator should show validation text on failure")
     }
 
-    /* 
-     Let's see what we have next. SignIn in function. Looks rather simple - it is. But remember that every if adds complexity.
-     I would start with making sure that inputIsValid function works properly. Now think about all of the possibilities:
-     <list of all possibilities> we should test all of this stuff here but... lets dive into the inputIsValid function. It uses validate function of Validable protocol on text fields. So maybe try to do something different here. Instead of checking all of the possibilities here (which we could - but why? this isn't responsibility of this vc to know all of this) let's try write tests for the Validable protocol and validators - when we make sure this code works properly we can rely on it in other parts of the app. 
-     <tests for validation>
-     Ok, so what do we know now? Validators work properly. Validable protocol works properly and returns true when all validators are ok. So now we don't have to check all of the cases here - its sufficient to just check the code that we actually use - so we have two bools which depend on the validation outcome.
-     */
-    
     func testThatInputIsValidReturnsTrueWhenBothLoginAndPasswordAreValid() {
         //Given
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
@@ -185,12 +169,6 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(viewController.inputIsValid(), false, "When both login and password are invalid should return false")
     }
     
-    // ALWAYS REMEMBER - THERE ARE ALWAYS AT LEAST A FEW WAYS OF DOING THINGS
-    /*
-     One of fundamental rules of unit tests is - they should be quick, they should be reliable and 100% reproducible.
-     When we are doing network calls in our tests we break both of this rules.
-     In order to chck next behaviors we need to stub our class that is making requests to login user.
-     */
     func testThatWhenInputIsValidBeforeLoginSpinnerStartAnimating() {
         //Given
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
@@ -218,9 +196,6 @@ class LoginViewControllerTests: XCTestCase {
         userDataProviderStub?.usernameToReturn = name
         viewController.signIn()
         //Then
-        // we could not include below asserts to tests and this would be perfectly fine because we already
-        // tested behavior of success / failure cosures - but in my opinion in tests sometimes its beneficial
-        // to have redundant code - just to make the test more readable, documentation-like
         XCTAssertEqual(viewController.successLabel.text, "Hello \(name)!", "Should contain \"Hello \(name)!\"")
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
@@ -322,10 +297,6 @@ extension LoginViewControllerTests {
     
 }
 
-/* 
- First create code inside test cases - its easier to shape it to our needs. Then you can extract it to separate class
- or wait for some other class to actually need this code - and then extract it.
- */
 class UserDataProviderStub: UserDataProvider {
     
     /**

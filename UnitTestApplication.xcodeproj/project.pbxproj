@@ -26,7 +26,6 @@
 		9AF87F2C1DE8FB9000BDEAE7 /* ValidableTextFieldSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F2B1DE8FB9000BDEAE7 /* ValidableTextFieldSpecs.swift */; };
 		9AF87F2E1DE8FEAB00BDEAE7 /* ValidableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F2D1DE8FEAB00BDEAE7 /* ValidableTests.swift */; };
 		9AF87F2F1DECB54B00BDEAE7 /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09B9CA1DDBA83B008AC48F /* LoginViewControllerTests.swift */; };
-		9AF87F311E07F4A300BDEAE7 /* LoginViewControllerTestsArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F301E07F4A300BDEAE7 /* LoginViewControllerTestsArticle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +62,6 @@
 		9AF87F291DE8EB0D00BDEAE7 /* String+EmailValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EmailValidationTests.swift"; sourceTree = "<group>"; };
 		9AF87F2B1DE8FB9000BDEAE7 /* ValidableTextFieldSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidableTextFieldSpecs.swift; sourceTree = "<group>"; };
 		9AF87F2D1DE8FEAB00BDEAE7 /* ValidableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidableTests.swift; sourceTree = "<group>"; };
-		9AF87F301E07F4A300BDEAE7 /* LoginViewControllerTestsArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTestsArticle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +124,6 @@
 				9AF87F291DE8EB0D00BDEAE7 /* String+EmailValidationTests.swift */,
 				9AF87F2B1DE8FB9000BDEAE7 /* ValidableTextFieldSpecs.swift */,
 				9AF87F2D1DE8FEAB00BDEAE7 /* ValidableTests.swift */,
-				9AF87F301E07F4A300BDEAE7 /* LoginViewControllerTestsArticle.swift */,
 			);
 			path = UnitTestApplicationTests;
 			sourceTree = "<group>";
@@ -280,7 +277,6 @@
 				9AF87F261DE8E42500BDEAE7 /* IsEmptyValidatorTests.swift in Sources */,
 				9AF87F2C1DE8FB9000BDEAE7 /* ValidableTextFieldSpecs.swift in Sources */,
 				9AF87F281DE8E9BB00BDEAE7 /* IsEmailValidatorsTests.swift in Sources */,
-				9AF87F311E07F4A300BDEAE7 /* LoginViewControllerTestsArticle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
