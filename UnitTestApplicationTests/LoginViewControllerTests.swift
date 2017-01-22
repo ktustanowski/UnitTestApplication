@@ -90,7 +90,7 @@ class LoginViewControllerTests: XCTestCase {
 
     func testThatLoginIsEmptyValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
         viewController.viewDidLoad()
-        viewController.loginTextField.text = nil
+        viewController.loginValidationLabel.text = nil
         viewController.loginValidationLabelHeightConstraint.constant = 0
         
         viewController.loginTextField.validators?.first?.isInvalidAction?()
@@ -111,7 +111,7 @@ class LoginViewControllerTests: XCTestCase {
     
     func testThatLoginIsEmailValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
         viewController.viewDidLoad()
-        viewController.loginTextField.text = nil
+        viewController.loginValidationLabel.text = nil
         viewController.loginValidationLabelHeightConstraint.constant = 0
         
         viewController.loginTextField.validators?.last?.isInvalidAction?()
@@ -139,6 +139,7 @@ class LoginViewControllerTests: XCTestCase {
     
     func testThatPasswordIsEmptyValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
         viewController.viewDidLoad()
+        viewController.passwordValidationLabel.text = nil
         viewController.passwordValidationLabelHeightConstraint.constant = 0
         
         viewController.passwordTextField.validators?.first?.isInvalidAction?()
