@@ -41,18 +41,3 @@ class IsEmptyValidatorTests: XCTestCase {
     }
 
 }
-
-/* 2.
- This tests are much simpler because we have already tested base (Validator) for them. We know that when validation relies on isValid closure. We know that when valid / invalid closures with action will be called. So what is left? We just have to validate the only thing which custom validators should provide - isValid closure. Behavior that will be injected into success / failure closures will be tested where it will be actually used.
- */
-//
-//struct IsEmptyValidator: Validator {
-//    
-//    var isValidAction: (()->())?
-//    var isInvalidAction: (()->())?
-//    
-//    var isValid: ((String?) -> (Bool)) = { input in
-//        return input?.isEmpty == false
-//    }
-//    
-//}

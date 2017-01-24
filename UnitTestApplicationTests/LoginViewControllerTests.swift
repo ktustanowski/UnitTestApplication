@@ -89,8 +89,7 @@ class LoginViewControllerTests: XCTestCase {
         viewController.loginTextField.validators?.first?.isInvalidAction?()
         
         XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
-        XCTAssertEqual(viewController.loginValidationLabel.text, "Login cannot be empty", "Is empty validator should show validation text on failure") /* this testing the text is more like - how far would you go - its ok to do this but every text change would require test update. When you are using string.identifiers (i.e. when localizing) its better - we are testing whether this text is in right place or not - not the text valie itself */
-
+        XCTAssertEqual(viewController.loginValidationLabel.text, "Login cannot be empty", "Is empty validator should show validation text on failure")
     }
 
     func testThatLoginIsEmailValidatorIsValidActionIsSetToHideValidationLabel() {
@@ -278,12 +277,11 @@ class LoginViewControllerTests: XCTestCase {
         //When
         viewController.textFieldDidEndEditing(UITextField())
         //Then
-        XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, 0, "Is empty validator should show validation label on failure")
-        XCTAssertEqual(viewController.passwordValidationLabel.text, nil, "Is empty validator should show validation text on failure")
+        XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, 0, "Shouldn't show validation label")
+        XCTAssertEqual(viewController.passwordValidationLabel.text, nil, "Shouldn't set validation text")
 
-        XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Is empty validator should show validation label on failure")
-        XCTAssertEqual(viewController.loginValidationLabel.text, nil, "Is empty validator should show validation text on failure")
-
+        XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Shouldn't show validation label")
+        XCTAssertEqual(viewController.loginValidationLabel.text, nil, "Shouldn't set validation text")
     }
 
 }
@@ -308,11 +306,7 @@ class UserDataProviderStub: UserDataProvider {
      */
     var errorToReturn: NSError?
     
-    var loadCalled = false
-    
     override func load(forLogin login: String, password: String) {
-        loadCalled = true
-        
         if let errorToReturn = errorToReturn {
             failure?(errorToReturn)
             return

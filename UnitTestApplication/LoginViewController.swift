@@ -34,11 +34,6 @@ final class LoginViewController: UIViewController {
         setupUserProvider()
     }
 
-    /*
-     UserProvider should have its own tests ofcourse but because this is only stub needed to demonstrate
-     what happens when we touch async world in tests I won't do it here. Not far from here you will see 
-     how treat classes that are giving us async headeache and we won't even use real UserDataProvider code in tests.
-     */
     func setupUserProvider() {
         userProvider?.success = { [weak self] user in
             self?.successLabel.text = "Hello \(user.name)!"

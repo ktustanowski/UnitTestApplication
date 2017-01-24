@@ -25,7 +25,6 @@ class UserDataProvider {
         /* pretend we do some network calls here */
         /* ------------------------------------- */
         DispatchQueue.global(qos: DispatchQoS.QoSClass.background).asyncAfter(deadline: .now() + 1.0, execute: {
-            
             DispatchQueue.main.async(execute: {
                 let shouldFail = arc4random_uniform(2) == 0
                 if shouldFail {

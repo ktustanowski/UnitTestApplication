@@ -49,25 +49,3 @@ class IsEmailValidatorsTests: XCTestCase {
     }
 
 }
-
-/* 3b.
- 
- We could use the same approach as with previous validator. Mostly. When you look closer you will see that this validator is actually very simple
- 
-     input?) == true
- 
-    we have a dependency here - we rely on code from String extension. In this case first we should test this extension  (3a.)- and when we documented that it works well - we can test validator.
- 
- struct IsEmailValidator: Validator {
- 
- var isValidAction: (()->())?
- var isInvalidAction: (()->())?
- 
- var isValid: ((String?) -> (Bool)) = { input in
- return input?) == true
- }
- 
- init() { /* block generation of init with parameters */ }
- 
- }
-*/

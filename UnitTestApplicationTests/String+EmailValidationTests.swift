@@ -28,18 +28,3 @@ class String_EmailValidationTests: XCTestCase {
     }
 
 }
-
-/* 
- 3a.
- This is fairly simple. We just have to check if our extension properly indicates whether string contains email or not.
- 
-extension String {
-    
-    var isEmail: Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let isEmailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        
-        return isEmailPredicate.evaluate(with: self)
-    }
-}
-*/

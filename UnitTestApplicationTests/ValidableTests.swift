@@ -71,10 +71,6 @@ class ValidableTests: XCTestCase {
 
 }
 
-/*
- We can test whether adding validators works properly. Then we should make sure that validate() & isValid are using this validators to determine whether stuff is fine or not. 
- */
-
 struct PositiveValidator: Validator {
     
     var isValidAction: (() -> ())?
