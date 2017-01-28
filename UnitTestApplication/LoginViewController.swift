@@ -126,7 +126,6 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController {
 
     func hideLoginValidationLabel() {
-        loginValidationLabel.text = nil
         loginValidationLabelHeightConstraint.constant = 0
     }
 
@@ -136,7 +135,6 @@ extension LoginViewController {
     }
 
     func hidePasswordValidationLabel() {
-        passwordValidationLabel.text = nil
         passwordValidationLabelHeightConstraint.constant = 0
     }
     

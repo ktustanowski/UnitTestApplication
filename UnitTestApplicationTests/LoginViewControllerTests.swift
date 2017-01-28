@@ -278,10 +278,7 @@ class LoginViewControllerTests: XCTestCase {
         viewController.textFieldDidEndEditing(UITextField())
         //Then
         XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, 0, "Shouldn't show validation label")
-        XCTAssertEqual(viewController.passwordValidationLabel.text, nil, "Shouldn't set validation text")
-
         XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Shouldn't show validation label")
-        XCTAssertEqual(viewController.loginValidationLabel.text, nil, "Shouldn't set validation text")
     }
 
 }
