@@ -81,7 +81,7 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
     }
 
-    func testThatLoginIsEmptyValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
+    func testThatLoginIsEmptyValidatorIsInvalidActionIsSetToShowValidationLabelWithValidationText() {
         viewController.viewDidLoad()
         viewController.loginValidationLabel.text = nil
         viewController.loginValidationLabelHeightConstraint.constant = 0
@@ -101,7 +101,7 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
     }
     
-    func testThatLoginIsEmailValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
+    func testThatLoginIsEmailValidatorIsInvalidActionIsSetToShowValidationLabelWithValidationText() {
         viewController.viewDidLoad()
         viewController.loginValidationLabel.text = nil
         viewController.loginValidationLabelHeightConstraint.constant = 0
@@ -128,7 +128,7 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
     }
     
-    func testThatPasswordIsEmptyValidatorIsValidActionIsSetToShowValidationLabelWithValidationText() {
+    func testThatPasswordIsEmptyValidatorIsInvalidActionIsSetToShowValidationLabelWithValidationText() {
         viewController.viewDidLoad()
         viewController.passwordValidationLabel.text = nil
         viewController.passwordValidationLabelHeightConstraint.constant = 0
