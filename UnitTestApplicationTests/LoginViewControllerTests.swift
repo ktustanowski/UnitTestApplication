@@ -35,106 +35,40 @@ class LoginViewControllerTests: XCTestCase {
         
         XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, 0, "Password validation label should be hidden on startup")
     }
-
-    func testThatUserProviderSuccessClosureIsSetOnViewDidLoad() {
-        //Given
-        viewController.viewDidLoad()
-        viewController.successLabel.text = nil
-        viewController.signInButton.isHidden = true
-        viewController.spinner.startAnimating()
-        //When
-        viewController.userProvider?.success?(User(login: "some@email.com", name: "John"))
-        //Then
-        XCTAssertEqual(viewController.successLabel.text, "Hello John!", "Should contain \"Hello John!\"")
-        XCTAssertEqual(viewController.signInButton.isHidden, false)
-        XCTAssertEqual(viewController.spinner.isAnimating, false)
-    }
-
-    func testThatUserProviderFailureClosureIsSetOnViewDidLoad() {
-        //Given
-        viewController.viewDidLoad()
-        viewController.successLabel.text = nil
-        viewController.signInButton.isHidden = true
-        viewController.spinner.startAnimating()
-        //When
-        viewController.userProvider?.failure?(nil)
-        //Then
-        XCTAssertEqual(viewController.successLabel.text, "Couldn't login 😱", "Should contain \"Couldn't login 😱\"")
-        XCTAssertEqual(viewController.signInButton.isHidden, false)
-        XCTAssertEqual(viewController.spinner.isAnimating, false)
-    }
     
-    func testThatLoginTextFieldValidatorsAreSetUpOnViewDidLoad() {
-        viewController.viewDidLoad()
-        
-        XCTAssertEqual(viewController.loginTextField.validators?.count, 2, "Login text field should have 2 validators assigned")
-        XCTAssert(viewController.loginTextField.validators?.first is IsEmptyValidator, "Login text field should have Is Empty Validator assigned")
-        XCTAssert(viewController.loginTextField.validators?.last is IsEmailValidator, "Login text field should have Is Email Validator assigned")
-    }
-
-    func testThatLoginIsEmptyValidatorIsValidActionIsSetToHideValidationLabel() {
-        viewController.viewDidLoad()
-        viewController.loginValidationLabelHeightConstraint.constant = 999
-        
-        viewController.loginTextField.validators?.first?.isValidAction?()
-        
-        XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
-    }
-
-    func testThatLoginIsEmptyValidatorIsInvalidActionIsSetToShowValidationLabelWithValidationText() {
+    func testThatLoginIsEmptyValidatorIsSetOnViewDidLoad() {
+        //Given
         viewController.viewDidLoad()
         viewController.loginValidationLabel.text = nil
         viewController.loginValidationLabelHeightConstraint.constant = 0
-        
-        viewController.loginTextField.validators?.first?.isInvalidAction?()
-        
+        //When
+        viewController.signIn()
+        //Then
         XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
         XCTAssertEqual(viewController.loginValidationLabel.text, "Login cannot be empty", "Is empty validator should show validation text on failure")
     }
-
-    func testThatLoginIsEmailValidatorIsValidActionIsSetToHideValidationLabel() {
-        viewController.viewDidLoad()
-        viewController.loginValidationLabelHeightConstraint.constant = 999
-        
-        viewController.loginTextField.validators?.last?.isValidAction?()
-        
-        XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
-    }
     
-    func testThatLoginIsEmailValidatorIsInvalidActionIsSetToShowValidationLabelWithValidationText() {
+    func testThatLoginIsEmailValidatorIsSetOnViewDidLoad() {
+        //Given
         viewController.viewDidLoad()
         viewController.loginValidationLabel.text = nil
         viewController.loginValidationLabelHeightConstraint.constant = 0
-        
-        viewController.loginTextField.validators?.last?.isInvalidAction?()
-        
+        viewController.loginTextField.text = "incorrect_email"
+        //When
+        viewController.signIn()
+        //Then
         XCTAssertEqual(viewController.loginValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
         XCTAssertEqual(viewController.loginValidationLabel.text, "Login must be valid email", "Is empty validator should show validation text on failure")
     }
 
-    func testThatPasswordTextFieldValidatorsAreSetUpOnViewDidLoad() {
-        viewController.viewDidLoad()
-        
-        XCTAssertEqual(viewController.passwordTextField.validators?.count, 1, "Password text field should have 1 validator assigned")
-        XCTAssert(viewController.passwordTextField.validators?.first is IsEmptyValidator, "Password text field should have Is Empty Validator assigned")
-    }
-    
-    func testThatPasswordIsEmptyValidatorIsValidActionIsSetToHideValidationLabel() {
-        viewController.viewDidLoad()
-        viewController.passwordValidationLabelHeightConstraint.constant = 999
-        
-        viewController.passwordTextField.validators?.first?.isValidAction?()
-        
-        XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, 0, "Is empty validator should hide validation label on success")
-    }
-    
-    func testThatPasswordIsEmptyValidatorIsInvalidActionIsSetToShowValidationLabelWithValidationText() {
+    func testThatPasswordIsEmptyValidatorIsSetOnViewDidLoad() {
+        //Given
         viewController.viewDidLoad()
         viewController.passwordValidationLabel.text = nil
         viewController.passwordValidationLabelHeightConstraint.constant = 0
-        
-        viewController.passwordTextField.validators?.first?.isInvalidAction?()
-        
+        //When
+        viewController.signIn()
+        //Then
         XCTAssertEqual(viewController.passwordValidationLabelHeightConstraint.constant, viewController.labelDefaultHeight, "Is empty validator should show validation label on failure")
         XCTAssertEqual(viewController.passwordValidationLabel.text, "Password cannot be empty", "Is empty validator should show validation text on failure")
     }
@@ -183,6 +117,20 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(viewController.spinner.isAnimating, true)
     }
     
+    func testThatBeforeSigningInUserProviderIsCreated() {
+        //Given
+        viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
+        viewController.passwordTextField.text = "0123456"
+        viewController.successLabel.text = nil
+        viewController.signInButton.isHidden = false
+        viewController.spinner.stopAnimating()
+        viewController.userProvider = nil /* unstub this only for this test */
+        //When
+        viewController.signIn()
+        //Then
+        XCTAssertNotNil(viewController.userProvider , "Should create provider when signing in user")
+    }
+
     func testThatWhenInputIsValidLoginUserAfterTappingSignInButtonWhenNoError() {
         //Given
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
@@ -191,11 +139,10 @@ class LoginViewControllerTests: XCTestCase {
         viewController.signInButton.isHidden = false
         viewController.spinner.stopAnimating()
         //When
-        let name = "Jonh"
-        userDataProviderStub?.usernameToReturn = name
+        userDataProviderStub?.usernameToReturn = "John"
         viewController.signIn()
         //Then
-        XCTAssertEqual(viewController.successLabel.text, "Hello \(name)!", "Should contain \"Hello \(name)!\"")
+        XCTAssertEqual(viewController.successLabel.text, "Hello John!", "Should be equal Hello John!")
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
     }
@@ -211,11 +158,13 @@ class LoginViewControllerTests: XCTestCase {
         userDataProviderStub?.errorToReturn = NSError(domain: "", code: 0, userInfo: [:])
         viewController.signIn()
         //Then
-        XCTAssertEqual(viewController.successLabel.text, "Couldn't login 😱", "Should contain \"Couldn't login 😱\"")
+        XCTAssertEqual(viewController.successLabel.text, "Couldn't login 😱", "Should be equal Couldn't login 😱")
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
     }
 
+    
+    
     func testThatWhenInputIsInvalidNothingHappensAfterTappingSignInButton() {
         //Given
         viewController.loginTextField.text = nil
@@ -226,7 +175,7 @@ class LoginViewControllerTests: XCTestCase {
         //When
         viewController.signIn()
         //Then
-        XCTAssertEqual(viewController.successLabel.text, "some text", "Shoulc contain some text")
+        XCTAssertEqual(viewController.successLabel.text, "some text", "Should contain some text")
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
     }

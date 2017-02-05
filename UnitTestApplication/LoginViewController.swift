@@ -21,9 +21,19 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var successLabel: UILabel!
     
-    lazy var userProvider: UserDataProvider? = {
-        return UserDataProvider()
-    }()
+    var userProvider: UserDataProvider? {
+        didSet {
+            userProvider?.success = { [weak self] user in
+                self?.successLabel.text = "Hello \(user.name)!"
+                self?.toggleSignInButtonAndSpinner()
+            }
+            
+            userProvider?.failure = { [weak self] error in
+                self?.successLabel.text = "Couldn't login 😱"
+                self?.toggleSignInButtonAndSpinner()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,20 +41,8 @@ final class LoginViewController: UIViewController {
         hideLoginValidationLabel()
         hidePasswordValidationLabel()
         setupValidators()
-        setupUserProvider()
     }
 
-    func setupUserProvider() {
-        userProvider?.success = { [weak self] user in
-            self?.successLabel.text = "Hello \(user.name)!"
-            self?.toggleSignInButtonAndSpinner()
-        }
-        
-        userProvider?.failure = { [weak self] error in
-            self?.successLabel.text = "Couldn't login 😱"
-            self?.toggleSignInButtonAndSpinner()
-        }
-    }
     
     func setupValidators() {
         setupLoginValidators()
@@ -92,7 +90,10 @@ final class LoginViewController: UIViewController {
     
     func signInUser() {
         guard let login = loginTextField.text, let password = loginTextField.text else { return }
-        
+        if userProvider == nil {
+            userProvider = UserDataProvider()
+        }
+                
         toggleSignInButtonAndSpinner()
         self.successLabel.text = nil
         
