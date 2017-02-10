@@ -107,8 +107,7 @@ class LoginViewControllerTests: XCTestCase {
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
         viewController.passwordTextField.text = "0123456"
         viewController.successLabel.text = "some text"
-        viewController.signInButton.isHidden = false
-        viewController.spinner.stopAnimating()
+        setupBeforeSigninInState()
         //When
         viewController.signIn()
         //Then
@@ -122,8 +121,7 @@ class LoginViewControllerTests: XCTestCase {
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
         viewController.passwordTextField.text = "0123456"
         viewController.successLabel.text = nil
-        viewController.signInButton.isHidden = false
-        viewController.spinner.stopAnimating()
+        setupBeforeSigninInState()
         viewController.userProvider = nil /* unstub this only for this test */
         //When
         viewController.signIn()
@@ -136,8 +134,7 @@ class LoginViewControllerTests: XCTestCase {
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
         viewController.passwordTextField.text = "0123456"
         viewController.successLabel.text = nil
-        viewController.signInButton.isHidden = false
-        viewController.spinner.stopAnimating()
+        setupBeforeSigninInState()
         //When
         userDataProviderStub?.usernameToReturn = "John"
         viewController.signIn()
@@ -152,8 +149,7 @@ class LoginViewControllerTests: XCTestCase {
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
         viewController.passwordTextField.text = "0123456"
         viewController.successLabel.text = nil
-        viewController.signInButton.isHidden = false
-        viewController.spinner.stopAnimating()
+        setupBeforeSigninInState()
         //When
         userDataProviderStub?.errorToReturn = NSError(domain: "", code: 0, userInfo: [:])
         viewController.signIn()
@@ -162,16 +158,13 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
     }
-
-    
     
     func testThatWhenInputIsInvalidNothingHappensAfterTappingSignInButton() {
         //Given
         viewController.loginTextField.text = nil
         viewController.passwordTextField.text = nil
         viewController.successLabel.text = "some text"
-        viewController.signInButton.isHidden = false
-        viewController.spinner.stopAnimating()
+        setupBeforeSigninInState()
         //When
         viewController.signIn()
         //Then
@@ -179,7 +172,6 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(viewController.signInButton.isHidden, false)
         XCTAssertEqual(viewController.spinner.isAnimating, false)
     }
-
     
     func testThatLoginViewControllerIsLoginTextFieldDlegate() {
         //Given
@@ -239,6 +231,11 @@ extension LoginViewControllerTests {
         viewController.passwordTextField.text = isValid ? "0123456" : ""
     }
     
+    func setupBeforeSigninInState() {
+        viewController.signInButton.isHidden = false
+        viewController.spinner.stopAnimating()
+    }
+
 }
 
 class UserDataProviderStub: UserDataProvider {
