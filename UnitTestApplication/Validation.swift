@@ -28,16 +28,4 @@ extension Validable {
         
         return true
     }
-    
-    func isValid() -> Bool {
-        guard let validators = validators else { return true }
-        
-        for validator in validators {
-            if validator.isValid(stringToValidate) == false {
-                return false
-            }
-        }
-        
-        return true
-    }
 }

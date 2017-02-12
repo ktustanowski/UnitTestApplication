@@ -73,7 +73,7 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(viewController.passwordValidationLabel.text, "Password cannot be empty", "Is empty validator should show validation text on failure")
     }
 
-    func testThatInputIsValidReturnsTrueWhenBothLoginAndPasswordAreValid() {
+    func testThatInputIsValidWhenBothLoginAndPasswordAreValid() {
         //Given
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
         viewController.passwordTextField.text = "0123456"
@@ -81,21 +81,21 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(viewController.inputIsValid(), true, "When both login and password are valid should return true")
     }
 
-    func testThatInputIsValidReturnsFalseWhenOnlyLoginIsValid() {
+    func testThatInputIsInvalidWhenOnlyLoginIsValid() {
         //Given
         viewController.loginTextField.text = "kyle.katarn@ravensclaw.com"
         //When & Then
         XCTAssertEqual(viewController.inputIsValid(), false, "When only login is valid should return false")
     }
 
-    func testThatInputIsValidReturnsFalseWhenOnlyPasswordIsValid() {
+    func testThatInputIsInvalidWhenOnlyPasswordIsValid() {
         //Given
         viewController.passwordTextField.text = "0123456"
         //When & Then
         XCTAssertEqual(viewController.inputIsValid(), false, "When only password is valid should return false")
     }
 
-    func testThatInputIsValidReturnsFalseWhenBothLoginAndPasswordAreInvalid() {
+    func testThatInputIsInvalidWhenBothLoginAndPasswordAreInvalid() {
         //Given
         /* do nothing */
         //When & Then
