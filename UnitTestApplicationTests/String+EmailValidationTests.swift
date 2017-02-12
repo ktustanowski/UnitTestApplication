@@ -12,7 +12,7 @@ import XCTest
 
 class String_EmailValidationTests: XCTestCase {
     
-    func testThatReturnsTrueIfStringIsValidEmail() {
+    func testThatWhenStringIsValidEmailReturnsTrue() {
         XCTAssert("luke.starkiller@death.star.emp".isEmail == true, "Should return true for valid email")
     }
 
