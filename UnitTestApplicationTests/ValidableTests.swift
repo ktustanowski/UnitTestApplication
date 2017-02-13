@@ -19,25 +19,21 @@ class ValidableTests: XCTestCase {
         validableStruct = ValidableStruct()
     }
     
-    func testThatWhenAllValidatorsReturnTrueValidateAlsoReturnsTrue() {
+    func testThatIsValidWhenAllValidatorsAreValid() {
         //Given
-        validableStruct.validators?.append(PositiveValidator())
-        validableStruct.validators?.append(PositiveValidator())
-        validableStruct.validators?.append(PositiveValidator())
+        validableStruct.validators = [PositiveValidator(), PositiveValidator()]
         //When & Then
         XCTAssert(validableStruct.validate() == true, "Validation when all validators return true should also return true")
     }
 
-    func testThatWhenNotAllValidatorsReturnTrueValidateReturnsFalse() {
+    func testThatIsInvalidWhenNotAllValidatorsAreValid() {
         //Given
-        validableStruct.validators?.append(PositiveValidator())
-        validableStruct.validators?.append(NegativeValidator())
-        validableStruct.validators?.append(PositiveValidator())
+        validableStruct.validators = [PositiveValidator(), NegativeValidator()]
         //When & Then
         XCTAssert(validableStruct.validate() == false, "Validation when not all validators return true should return false")
     }
 
-    func testThatWhenNoValidatorsValidateReturnsTrue() {
+    func testThatIsValidWhenNoValidators() {
         //Given
         /* do nothing */
         //When & Then
