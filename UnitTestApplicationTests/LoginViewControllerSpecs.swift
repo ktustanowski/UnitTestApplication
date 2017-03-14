@@ -45,6 +45,7 @@ class LoginViewControllerSpecs: QuickSpec {
                     }
                     it("updates UI for loading") {
                         viewController.userProvider = BlockCallbacksUserDataProviderStub()
+                        
                         viewController.signIn()
                     
                         expect(viewController.spinner.isAnimating) == true
@@ -87,6 +88,7 @@ class LoginViewControllerSpecs: QuickSpec {
                 context("when provided incorrect credentials") {
                     it("doesn't update UI") {
                         viewController.userProvider = BlockCallbacksUserDataProviderStub()
+                        
                         viewController.signIn()
                         
                         expect(viewController.spinner.isAnimating) == false
