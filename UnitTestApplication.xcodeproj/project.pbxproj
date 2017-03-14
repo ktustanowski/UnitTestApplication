@@ -14,6 +14,9 @@
 		9A09B9B51DD67849008AC48F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A09B9B31DD67849008AC48F /* LaunchScreen.storyboard */; };
 		9A09B9CE1DDBC4A8008AC48F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09B9CD1DDBC4A8008AC48F /* Validation.swift */; };
 		9A09B9D01DDBC4DB008AC48F /* ValidableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09B9CF1DDBC4DB008AC48F /* ValidableTextField.swift */; };
+		9A1E282F1E77471C00763694 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1E282D1E77471C00763694 /* Nimble.framework */; };
+		9A1E28301E77471C00763694 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1E282E1E77471C00763694 /* Quick.framework */; };
+		9A3CB8891E78AA8500E136CA /* LoginViewControllerSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1E28311E77476100763694 /* LoginViewControllerSpecs.swift */; };
 		9AD0193E1DDCE27F00FBC92B /* UserDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD0193D1DDCE27F00FBC92B /* UserDataProvider.swift */; };
 		9AF87F171DE3A2A600BDEAE7 /* String+EmailValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F161DE3A2A600BDEAE7 /* String+EmailValidation.swift */; };
 		9AF87F191DE3A4E000BDEAE7 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF87F181DE3A4E000BDEAE7 /* Validator.swift */; };
@@ -51,6 +54,9 @@
 		9A09B9CA1DDBA83B008AC48F /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		9A09B9CD1DDBC4A8008AC48F /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		9A09B9CF1DDBC4DB008AC48F /* ValidableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidableTextField.swift; sourceTree = "<group>"; };
+		9A1E282D1E77471C00763694 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		9A1E282E1E77471C00763694 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		9A1E28311E77476100763694 /* LoginViewControllerSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerSpecs.swift; sourceTree = "<group>"; };
 		9AD0193D1DDCE27F00FBC92B /* UserDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataProvider.swift; sourceTree = "<group>"; };
 		9AF87F161DE3A2A600BDEAE7 /* String+EmailValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EmailValidation.swift"; sourceTree = "<group>"; };
 		9AF87F181DE3A4E000BDEAE7 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
@@ -76,6 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A1E282F1E77471C00763694 /* Nimble.framework in Frameworks */,
+				9A1E28301E77471C00763694 /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +96,7 @@
 				9A09B9A91DD67848008AC48F /* UnitTestApplication */,
 				9A09B9BE1DD67849008AC48F /* UnitTestApplicationTests */,
 				9A09B9A81DD67848008AC48F /* Products */,
+				9A1E282C1E77471C00763694 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,6 +133,7 @@
 				9AF87F291DE8EB0D00BDEAE7 /* String+EmailValidationTests.swift */,
 				9AF87F2B1DE8FB9000BDEAE7 /* ValidableTextFieldSpecs.swift */,
 				9AF87F2D1DE8FEAB00BDEAE7 /* ValidableTests.swift */,
+				9A1E28311E77476100763694 /* LoginViewControllerSpecs.swift */,
 			);
 			path = UnitTestApplicationTests;
 			sourceTree = "<group>";
@@ -137,6 +147,15 @@
 				9AF87F1E1DE3A53800BDEAE7 /* Validation */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		9A1E282C1E77471C00763694 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A1E282D1E77471C00763694 /* Nimble.framework */,
+				9A1E282E1E77471C00763694 /* Quick.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9AF87F1E1DE3A53800BDEAE7 /* Validation */ = {
@@ -277,6 +296,7 @@
 				9AF87F261DE8E42500BDEAE7 /* IsEmptyValidatorTests.swift in Sources */,
 				9AF87F2C1DE8FB9000BDEAE7 /* ValidableTextFieldSpecs.swift in Sources */,
 				9AF87F281DE8E9BB00BDEAE7 /* IsEmailValidatorsTests.swift in Sources */,
+				9A3CB8891E78AA8500E136CA /* LoginViewControllerSpecs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,8 +452,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = UnitTestApplicationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kamil.tustanowski.UnitTestApplicationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -446,8 +470,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = UnitTestApplicationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kamil.tustanowski.UnitTestApplicationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;

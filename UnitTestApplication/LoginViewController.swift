@@ -44,12 +44,12 @@ final class LoginViewController: UIViewController {
     }
 
     
-    func setupValidators() {
+    fileprivate func setupValidators() {
         setupLoginValidators()
         setupPasswordValidators()
     }
     
-    func setupLoginValidators() {
+    fileprivate func setupLoginValidators() {
         var isEmptyValidator = IsEmptyValidator()
         isEmptyValidator.isValidAction = { [weak self] in
             self?.hideLoginValidationLabel()
@@ -70,7 +70,7 @@ final class LoginViewController: UIViewController {
     }
     
     
-    func setupPasswordValidators() {
+    fileprivate func setupPasswordValidators() {
         var isEmptyValidator = IsEmptyValidator()
         isEmptyValidator.isValidAction = { [weak self] in
             self?.hidePasswordValidationLabel()
@@ -88,7 +88,7 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    func signInUser() {
+    fileprivate func signInUser() {
         guard let login = loginTextField.text, let password = loginTextField.text else { return }
         if userProvider == nil {
             userProvider = UserDataProvider()
@@ -100,12 +100,12 @@ final class LoginViewController: UIViewController {
         userProvider?.load(forLogin: login, password: password)
     }
     
-    func toggleSignInButtonAndSpinner() {
+    fileprivate func toggleSignInButtonAndSpinner() {
         signInButton.isHidden = !signInButton.isHidden
         spinner.isAnimating ? spinner.stopAnimating() : spinner.startAnimating()
     }
     
-    func inputIsValid() -> Bool {
+    fileprivate func inputIsValid() -> Bool {
         let loginIsValid = loginTextField.validate()
         let passwordIsValid = passwordTextField.validate()
         
