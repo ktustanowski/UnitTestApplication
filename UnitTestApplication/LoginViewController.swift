@@ -19,17 +19,17 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var loginValidationLabel: UILabel!
     @IBOutlet weak var passwordValidationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var successLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
     
     var userProvider: UserDataProvider? {
         didSet {
             userProvider?.success = { [weak self] user in
-                self?.successLabel.text = "Hello \(user.name)!"
+                self?.messageLabel.text = "Hello \(user.name)!"
                 self?.toggleSignInButtonAndSpinner()
             }
             
             userProvider?.failure = { [weak self] error in
-                self?.successLabel.text = "Couldn't login 😱"
+                self?.messageLabel.text = "Couldn't login 😱"
                 self?.toggleSignInButtonAndSpinner()
             }
         }
@@ -95,7 +95,7 @@ final class LoginViewController: UIViewController {
         }
                 
         toggleSignInButtonAndSpinner()
-        self.successLabel.text = nil
+        self.messageLabel.text = nil
         
         userProvider?.load(forLogin: login, password: password)
     }
