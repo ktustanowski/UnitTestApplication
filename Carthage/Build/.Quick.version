@@ -1,0 +1,25 @@
+{
+  "commitish" : "v1.1.0",
+  "iOS" : [
+    {
+      "hash" : "e9e85603c0c98db363fb1433d43f2a9a38a1be98b453d6ea64ef9171151a8d39",
+      "name" : "Quick"
+    }
+  ],
+  "xcodeVersion" : "Xcode 8.1\nBuild version 8B62",
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+    {
+      "hash" : "868729234b4bf4438d9c3a657521f2baccf271eb62f22febcdb78b91a715c94f",
+      "name" : "Quick"
+    }
+  ],
+  "Mac" : [
+    {
+      "hash" : "9ccfc527df74ce3e83e6b2e9eb22f0ddb88a1d9a684e8e0917ada23ef15d4c7c",
+      "name" : "Quick"
+    }
+  ]
+}

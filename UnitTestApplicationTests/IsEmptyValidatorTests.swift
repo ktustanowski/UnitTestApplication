@@ -19,21 +19,21 @@ class IsEmptyValidatorTests: XCTestCase {
         validator = IsEmptyValidator()
     }
     
-    func testThatWhenPassedEmptyStringValidateReturnsFalse() {
+    func testThatWhenEmptyStringValidationFails() {
         //Given
         /* do nothing */
         //When & Then
         XCTAssert(validator.validate("") == false, "Validation of empty string should return false")
     }
 
-    func testThatWhenPassedNotEmptyStringValidateReturnsTrue() {
+    func testThatWhenPassedNotEmptyStringValidationPasses() {
         //Given
         /* do nothing */
         //When & Then
         XCTAssert(validator.validate("SomeNotEmptyString") == true, "Validation of not empty string should return true")
     }
 
-    func testThatWhenPassedNilValidateReturnsFalse() {
+    func testThatWhenNilValidationFails() {
         //Given
         /* do nothing */
         //When & Then

@@ -12,11 +12,11 @@ import XCTest
 
 class String_EmailValidationTests: XCTestCase {
     
-    func testThatReturnsTrueIfStringIsValidEmail() {
+    func testThatWhenStringIsValidEmailReturnsTrue() {
         XCTAssert("luke.starkiller@death.star.emp".isEmail == true, "Should return true for valid email")
     }
 
-    func testThatReturnsFalseIfStringIsNotValidEmail() {
+    func testThatWhenStringIsNotValidEmailReturnsFalse() {
         XCTAssert("InvalidEmail".isEmail == false, "Should return false for string that are is valid email")
         XCTAssert("%%2@_dsa**sdd8dsa".isEmail == false, "Should return false for string that is not valid email")
         XCTAssert("".isEmail == false, "Should return false for string that are not valid email")

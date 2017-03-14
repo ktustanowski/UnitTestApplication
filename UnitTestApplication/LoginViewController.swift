@@ -19,11 +19,21 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var loginValidationLabel: UILabel!
     @IBOutlet weak var passwordValidationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var successLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
     
-    lazy var userProvider: UserDataProvider? = {
-        return UserDataProvider()
-    }()
+    var userProvider: UserDataProvider? {
+        didSet {
+            userProvider?.success = { [weak self] user in
+                self?.messageLabel.text = "Hello \(user.name)!"
+                self?.toggleSignInButtonAndSpinner()
+            }
+            
+            userProvider?.failure = { [weak self] error in
+                self?.messageLabel.text = "Couldn't login 😱"
+                self?.toggleSignInButtonAndSpinner()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,27 +41,15 @@ final class LoginViewController: UIViewController {
         hideLoginValidationLabel()
         hidePasswordValidationLabel()
         setupValidators()
-        setupUserProvider()
     }
 
-    func setupUserProvider() {
-        userProvider?.success = { [weak self] user in
-            self?.successLabel.text = "Hello \(user.name)!"
-            self?.toggleSignInButtonAndSpinner()
-        }
-        
-        userProvider?.failure = { [weak self] error in
-            self?.successLabel.text = "Couldn't login 😱"
-            self?.toggleSignInButtonAndSpinner()
-        }
-    }
     
-    func setupValidators() {
+    fileprivate func setupValidators() {
         setupLoginValidators()
         setupPasswordValidators()
     }
     
-    func setupLoginValidators() {
+    fileprivate func setupLoginValidators() {
         var isEmptyValidator = IsEmptyValidator()
         isEmptyValidator.isValidAction = { [weak self] in
             self?.hideLoginValidationLabel()
@@ -72,7 +70,7 @@ final class LoginViewController: UIViewController {
     }
     
     
-    func setupPasswordValidators() {
+    fileprivate func setupPasswordValidators() {
         var isEmptyValidator = IsEmptyValidator()
         isEmptyValidator.isValidAction = { [weak self] in
             self?.hidePasswordValidationLabel()
@@ -90,21 +88,24 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    func signInUser() {
+    fileprivate func signInUser() {
         guard let login = loginTextField.text, let password = loginTextField.text else { return }
-        
+        if userProvider == nil {
+            userProvider = UserDataProvider()
+        }
+                
         toggleSignInButtonAndSpinner()
-        self.successLabel.text = nil
+        self.messageLabel.text = nil
         
         userProvider?.load(forLogin: login, password: password)
     }
     
-    func toggleSignInButtonAndSpinner() {
+    fileprivate func toggleSignInButtonAndSpinner() {
         signInButton.isHidden = !signInButton.isHidden
         spinner.isAnimating ? spinner.stopAnimating() : spinner.startAnimating()
     }
     
-    func inputIsValid() -> Bool {
+    fileprivate func inputIsValid() -> Bool {
         let loginIsValid = loginTextField.validate()
         let passwordIsValid = passwordTextField.validate()
         

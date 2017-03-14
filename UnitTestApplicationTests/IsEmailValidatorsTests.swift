@@ -19,14 +19,14 @@ class IsEmailValidatorsTests: XCTestCase {
         validator = IsEmailValidator()
     }
     
-    func testThatWhenPassedValidEmailStringReturnsTrue() {
+    func testThatWhenEmailStringIsValidValidationPasses() {
         //Given
         /* do nothing */
         //When & Then
         XCTAssert(validator.validate("thrawn@grand.admiral.emp") == true, "Validation of correct email string should return true")
     }
 
-    func testThatWhenPassedInvalidEmailStringReturnsFalse() {
+    func testThatWhenEmailStringIsInvalidValidationFails() {
         //Given
         /* do nothing */
         //When & Then
@@ -41,7 +41,7 @@ class IsEmailValidatorsTests: XCTestCase {
 
     }
 
-    func testThatWhenPassedNilReturnsFalse() {
+    func testThatWhenNilValidationFails() {
         //Given
         /* do nothing */
         //When & Then

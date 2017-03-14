@@ -121,12 +121,12 @@
                         <outlet property="loginTextField" destination="beX-fa-t2z" id="Wsl-ud-goj"/>
                         <outlet property="loginValidationLabel" destination="sbS-8O-a8h" id="4L8-ka-Di6"/>
                         <outlet property="loginValidationLabelHeightConstraint" destination="ZEe-48-Yf5" id="mET-wH-A3g"/>
+                        <outlet property="messageLabel" destination="pm0-wT-RCE" id="iSf-Dt-E9y"/>
                         <outlet property="passwordTextField" destination="Lzn-jf-bPj" id="osP-Uv-SSY"/>
                         <outlet property="passwordValidationLabel" destination="J2b-rr-VwP" id="6SA-MB-Ws1"/>
                         <outlet property="passwordValidationLabelHeightConstraint" destination="83V-um-HAI" id="65H-cg-UKr"/>
                         <outlet property="signInButton" destination="WeL-d1-fyh" id="foU-js-0eZ"/>
                         <outlet property="spinner" destination="kbh-eN-sZs" id="Owh-rK-STW"/>
-                        <outlet property="successLabel" destination="pm0-wT-RCE" id="tJP-Uk-Yyn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
