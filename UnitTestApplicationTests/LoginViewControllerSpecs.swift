@@ -17,21 +17,15 @@ class LoginViewControllerSpecs: QuickSpec {
         var viewController: LoginViewController!
         
         beforeEach {
-            viewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! LoginViewController
-            viewController.loadViewIfNeeded()
-            viewController.userProvider = UserDataProviderStub() /* Make sure we won't make api calls during the tests */
+            viewController = LoginViewController.make()
         }
         
-        describe("On view did load") {
+        context("On view did load") { beforeEach { viewController.viewDidLoad() }
             it("hides login validation label") {
-                viewController.viewDidLoad()
-                
                 expect(viewController.loginValidationLabelHeightConstraint.constant) == 0
             }
             
             it("hides password validation label") {
-                viewController.viewDidLoad()
-                
                 expect(viewController.passwordValidationLabelHeightConstraint.constant) == 0
             }
         }
@@ -47,40 +41,44 @@ class LoginViewControllerSpecs: QuickSpec {
                         viewController.userProvider = BlockCallbacksUserDataProviderStub()
                         
                         viewController.signIn()
-                    
+                        
                         expect(viewController.spinner.isAnimating) == true
                         expect(viewController.signInButton.isHidden) == true
                     }
                     
-                    context("and request was succesfull") { beforeEach { viewController.userProvider = SuccessUserDataProviderStub() }
-                        it("shows success message") {
-                            viewController.signIn()
+                    context("and request was") {
+                        context("succesfull") { beforeEach { viewController.userProvider = SuccessUserDataProviderStub() }
+                            it("shows success message") {
+                                viewController.signIn()
+                                
+                                expect(viewController.messageLabel.text) == "Hello \(SuccessUserDataProviderStub.username)!"
+                                expect(viewController.messageLabel.isHidden) == false
+                            }
                             
-                            expect(viewController.messageLabel.text) == "Hello \(SuccessUserDataProviderStub.username)!"
-                            expect(viewController.messageLabel.isHidden) == false
-                        }
-                        
-                        it("updates UI for not loading") {
-                            viewController.signIn()
-                            
-                            expect(viewController.spinner.isAnimating) == false
-                            expect(viewController.signInButton.isHidden) == false
+                            it("updates UI for not loading") {
+                                viewController.signIn()
+                                
+                                expect(viewController.spinner.isAnimating) == false
+                                expect(viewController.signInButton.isHidden) == false
+                            }
                         }
                     }
                     
-                    context("and request was unsuccesfull") { beforeEach { viewController.userProvider = FailureUserDataProviderStub() }
-                        it("shows failure message") {
-                            viewController.signIn()
+                    context("and request was") {
+                        context("unsuccesfull") { beforeEach { viewController.userProvider = FailureUserDataProviderStub() }
+                            it("shows failure message") {
+                                viewController.signIn()
+                                
+                                expect(viewController.messageLabel.text) == "Couldn't login 😱"
+                                expect(viewController.messageLabel.isHidden) == false
+                            }
                             
-                            expect(viewController.messageLabel.text) == "Couldn't login 😱"
-                            expect(viewController.messageLabel.isHidden) == false
-                        }
-                        
-                        it("updates UI for not loading") {
-                            viewController.signIn()
-                            
-                            expect(viewController.spinner.isAnimating) == false
-                            expect(viewController.signInButton.isHidden) == false
+                            it("updates UI for not loading") {
+                                viewController.signIn()
+                                
+                                expect(viewController.spinner.isAnimating) == false
+                                expect(viewController.signInButton.isHidden) == false
+                            }
                         }
                     }
                 }
@@ -94,7 +92,7 @@ class LoginViewControllerSpecs: QuickSpec {
                         expect(viewController.spinner.isAnimating) == false
                         expect(viewController.signInButton.isHidden) == false
                     }
-
+                    
                     context("password is empty") {
                         it("shows empty password validation error") {
                             viewController.signIn()
@@ -126,38 +124,51 @@ class LoginViewControllerSpecs: QuickSpec {
                 }
             }
             
-            context("did end editing login field") {
-                context("when login is empty") {
-                    it("shows empty login validation error") {
-                        viewController.textFieldDidEndEditing(viewController.loginTextField)
-                        
-                        expect(viewController.loginValidationLabelHeightConstraint.constant) == viewController.labelDefaultHeight
-                        expect(viewController.loginValidationLabel.text) == "Login cannot be empty"
+            context("did end editing") {
+                context("login field") {
+                    context("when is empty") {
+                        it("shows empty validation error") {
+                            viewController.textFieldDidEndEditing(viewController.loginTextField)
+                            
+                            expect(viewController.loginValidationLabelHeightConstraint.constant) == viewController.labelDefaultHeight
+                            expect(viewController.loginValidationLabel.text) == "Login cannot be empty"
+                        }
+                    }
+                    
+                    context("when is invalid email") {
+                        it("shows invalid email validation error") {
+                            viewController.loginTextField.text = "invalid@email"
+                            viewController.textFieldDidEndEditing(viewController.loginTextField)
+                            
+                            expect(viewController.loginValidationLabelHeightConstraint.constant) == viewController.labelDefaultHeight
+                            expect(viewController.loginValidationLabel.text) == "Login must be valid email"
+                        }
                     }
                 }
                 
-                context("when login is not valid email") {
-                    it("shows invalid email login validation error") {
-                        viewController.loginTextField.text = "invalid@email"
-                        viewController.textFieldDidEndEditing(viewController.loginTextField)
-                        
-                        expect(viewController.loginValidationLabelHeightConstraint.constant) == viewController.labelDefaultHeight
-                        expect(viewController.loginValidationLabel.text) == "Login must be valid email"
-                    }
-                }
-            }
-
-            context("did end editing password field") {
-                context("when password is empty") {
-                    it("shows empty password validation error") {
-                        viewController.textFieldDidEndEditing(viewController.passwordTextField)
-                        
-                        expect(viewController.passwordValidationLabelHeightConstraint.constant) == viewController.labelDefaultHeight
-                        expect(viewController.passwordValidationLabel.text) == "Password cannot be empty"
+                context("password field") {
+                    context("when is empty") {
+                        it("shows empty validation error") {
+                            viewController.textFieldDidEndEditing(viewController.passwordTextField)
+                            
+                            expect(viewController.passwordValidationLabelHeightConstraint.constant) == viewController.labelDefaultHeight
+                            expect(viewController.passwordValidationLabel.text) == "Password cannot be empty"
+                        }
                     }
                 }
             }
         }
+    }
+}
+
+extension LoginViewController {
+    
+    static func make() -> LoginViewController {
+        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! LoginViewController
+        viewController.loadViewIfNeeded()
+        viewController.userProvider = UserDataProviderStub() /* Make sure we won't make api calls during the tests */
+        
+        return viewController
     }
 }
 
